@@ -12,7 +12,7 @@ const Audios = () => {
     const formData = new FormData();
     formData.append("audio", file);
 
-    const res = await fetch("${process.env.REACT_APP_API_URL}/predict", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/predict`, {
       method: "POST",
       body: formData,
     });
@@ -25,7 +25,7 @@ const Audios = () => {
     setLoading(true);
     setResponse(null);
     try {
-      const res = await fetch("${process.env.REACT_APP_API_URL}/ping");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/ping`);
       const data = await res.json();
       setResponse(JSON.stringify(data));
     } catch (error) {
