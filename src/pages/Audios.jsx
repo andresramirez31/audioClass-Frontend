@@ -12,7 +12,7 @@ const Audios = () => {
     const formData = new FormData();
     formData.append("audio", file);
 
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/predict`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/test-upload`, {
       method: "POST",
       body: formData,
     });
