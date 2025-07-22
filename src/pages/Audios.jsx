@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 const Audios = () => {
   const [file, setFile] = useState(null);
   const [prediction, setPrediction] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +19,19 @@ const Audios = () => {
 
     const data = await res.json();
     setPrediction(data.prediction);
+  };
+
+  const handlePing = async () => {
+    setLoading(true);
+    setResponse(null);
+    try {
+      const res = await fetch("${process.env.REACT_APP_API_URL}/ping");
+      const data = await res.json();
+      setResponse(JSON.stringify(data));
+    } catch (error) {
+      setResponse("Error: " + error.message);
+    }
+    setLoading(false);
   };
 
   return (
@@ -100,6 +115,16 @@ const Audios = () => {
           </div>
         </div>
       </section>
+      <div>
+        <h2>Ping Endpoint Test</h2>
+        <button onClick={handlePing} disabled={loading}>
+          {loading ? "Pinging..." : "Ping"}
+        </button>
+        <div style={{ marginTop: 20 }}>
+          <strong>Response:</strong>
+          <pre>{response}</pre>
+        </div>
+      </div>
       <footer className="footer text-center">
         <div className="container">
           <div className="row">
