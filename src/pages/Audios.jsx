@@ -10,7 +10,7 @@ const Audios = () => {
     const formData = new FormData();
     formData.append("audio", file);
 
-    const res = await fetch("http://localhost:8000/predict", {
+    const res = await fetch("${process.env.REACT_APP_API_URL}/predict", {
       method: "POST",
       body: formData,
     });
